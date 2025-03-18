@@ -5,7 +5,10 @@ pipeline{
     stages{ 
         stage("Pinging"){ 
             steps{ 
-                sh "ansible -m ping web"
+                sh '''
+
+                ansible-playbook playbook.yml
+                '''
             }
         }
     }
