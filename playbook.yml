@@ -1,0 +1,7 @@
+--- 
+- name: Checking the os family of remote server
+  hosts: web
+  tasks: 
+    - name: printing the os 
+      debug: 
+        msg: "The os fammily of the web is {{ ansible_os_family }}"
