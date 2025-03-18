@@ -6,7 +6,7 @@
   tasks:
     - name: copy the tar image to the web server
       copy: 
-        src: workspace/nginx:latest.tar
+        src: "{{ workspace }}/nginx:latest.tar"
         dest: /home/vagrant/
     - name: Loading the tar file in the remote server
       command: docker load -i /home/vagrant/nginx:latest.tar

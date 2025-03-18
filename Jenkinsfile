@@ -49,7 +49,7 @@ pipeline {
             steps{ 
                 sh '''
                     cd $WORKSPACE
-                    ansible-playbook playbook.yml -e "workspace=$WORKSPACE" -e "number=$BUILD_NUMBER"
+                    ansible-playbook playbook.yml -e "workspace = $WORKSPACE" -e "number=$BUILD_NUMBER"
                 '''
             }
         }
