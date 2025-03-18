@@ -1,15 +1,15 @@
----
-- name: Doing something....
+--- 
+- name: Doing something.... 
   hosts: web
-  tasks:
+  tasks: 
     - name: Copying the file
-      copy:
+      copy: 
         src: "{{ ansible_env.WORKSPACE }}/2133_moso_interior/"
         dest: /var/www/html/
       notify: Restart Nginx
-
-  handlers:
+  handlers: 
     - name: Restart Nginx
-      service:
+      service: 
         name: nginx
         state: restarted
+
