@@ -6,7 +6,7 @@ pipeline{
         stage("Pinging"){ 
             steps{ 
                 sh '''
-                cd /home/vagrant/ansible
+                cd $WORKSPACE
                 ansible-playbook playbook.yml
                 '''
             }
