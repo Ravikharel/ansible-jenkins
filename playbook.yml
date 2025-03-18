@@ -8,7 +8,7 @@
         dest: /var/www/html/*
       notify: Restart Nginx
   handlers: 
-    - name: Restart nginx
+    - name: Restart Nginx
       service: 
         state: restarted
 
