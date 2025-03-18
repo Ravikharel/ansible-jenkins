@@ -4,11 +4,11 @@
   tasks: 
     - name: Copying the file
       copy: 
-        src: 2133_moso_interior/* 
+        src: "{{ playbook_dir }}/2133_moso_interior/*"
         dest: /var/www/html/*
       notify: Restart Nginx
   handlers: 
     - name: Restart nginx
       service: 
         state: restarted
-        
+
