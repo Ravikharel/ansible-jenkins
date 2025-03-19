@@ -1,5 +1,7 @@
-FROM nginx:latest
-WORKDIR /usr/share/nginx/html
-COPY  2133_moso_interior/ .
-EXPOSE 80 
-CMD ['nginx', '-g', 'daemon off;']
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 5000
+CMD ["python" ,"app.py"]

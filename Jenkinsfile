@@ -1,13 +1,16 @@
-pipeline {
+pipeline{
     agent any
     environment{ 
-        dockerImage = "ravikharel/nginx"
+        dockerImage = "ravikharel/compose"
     }
-    stages {
-        stage('Building the docker image'){ 
+    stages{
+        stage('Building the image'){ 
             steps{ 
-                sh "docker image build -t ${dockerImage}:${BUILD_NUMBER} . "
+                script{ 
+                    sh "docker image build -t ${dockerImage}:${BUILD_NUMBER} ."
+                }
             }
+            
         }
         stage('Scanning the image'){ 
             steps{ 
@@ -25,23 +28,6 @@ pipeline {
                 
             }
         }
-        stage('Pulling the image to the ansible node'){ 
-            agent{ 
-                label "ansible-node"
-
-            }
-            steps{ 
-                sh "docker pull ${dockerImage}:${BUILD_NUMBER}"
-            }
-        }
-        stage("saving it as a tar file"){
-            agent{ 
-                label "ansible-node"
-            }
-            steps{ 
-                sh " docker save -o $WORKSPACE/nginx:latest.tar ${dockerImage}:${BUILD_NUMBER}"
-            }
-        }
         stage('Playing the playbook'){ 
             agent{ 
                 label "ansible-node"
@@ -49,7 +35,8 @@ pipeline {
             steps{ 
                 sh '''
                     cd $WORKSPACE
-                    ansible-playbook playbook.yml -e "workspace = $WORKSPACE" -e "number=$BUILD_NUMBER"
+                    ansible-playbook playbook.yml -e "workspace=$WORKSPACE" -e "number=$BUILD_NUMBER" -e "dockerImage=$dockerImage"
+
                 '''
             }
         }
